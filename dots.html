@@ -9,7 +9,7 @@ Dots = [];
 paused = false;
 
 function fresh_x_pos() {
-  return Math.random() * 600 - 5;
+  return Math.random() * window.innerHeight - 5;
 }
 
 function fresh_dot() {
@@ -18,7 +18,7 @@ function fresh_dot() {
 }
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(window.innerWidth, window.innerHeight);
 
   frameRate(30);
   background(0);
@@ -68,7 +68,7 @@ function draw() {
     
     Dots[i][1] += speed;
     
-    if (Dots[i][1] > 600 + 10) {
+    if (Dots[i][1] > window.innerWidth + 75) {
       if (Math.random() <= 0.8){
         newDots.push(fresh_dot());
       }
@@ -100,6 +100,6 @@ function mousePressed() {
 
       </script>
    </head>
-   <body>
+   <body style="margin:0;border:0;padding: 0;">
    </body>
 </html>
