@@ -29,6 +29,10 @@ function setup() {
   Dots.push(fresh_dot());
 }
 
+function get_wiggle_for_dot(dot, x) {
+  return dot[0] + dot[2] * Math.sin(x / dot[3])
+}
+
 function draw() { 
 
  //if (paused) {
@@ -37,17 +41,32 @@ function draw() {
 
   background(0);
 
+  stroke(255);
   color(255);
 
   newDots = [];
 
   for (var i=0; i<Dots.length; i++) {
 
-    ellipse(Dots[i][1], 
-      Dots[i][0] + Dots[i][2] * Math.sin(Dots[i][1]/Dots[i][3]),
-       10, 10);
+    var speed = paused ? Dots[i][4] : 50;
+
+    var head_x = Dots[i][1];
+    var head_y = get_wiggle_for_dot(Dots[i], head_x);
+
+
+    ellipse(head_x, head_y, 10, 10);
+
+    var tail_x = head_x - 20;
+    var tail_y = get_wiggle_for_dot(Dots[i], tail_x);
+
+    line(tail_x, tail_y, head_x, head_y);
+
+    var tail_x_2 = tail_x - 50;
+    var tail_y_2 = get_wiggle_for_dot(Dots[i], tail_x_2);
+
+    line(tail_x, tail_y, tail_x_2, tail_y_2);
     
-    Dots[i][1] += paused ? Dots[i][4] : 50;
+    Dots[i][1] += speed;
     
     if (Dots[i][1] > 600 + 10) {
       if (Math.random() <= 0.8){
